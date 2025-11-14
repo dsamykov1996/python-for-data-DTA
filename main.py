@@ -1,6 +1,8 @@
 import pandas as pd
-
+import numpy as np
 url = "data/movies_metadata.csv"
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 #df = DataFrame
 df = pd.read_csv(url)
@@ -21,17 +23,42 @@ df = pd.read_csv(url)
 df.fillna({"tagline": "without tagline"}, inplace=True)
 # df["tagline"] = df["tagline"].fillna("without tagline")
 
-print(df.homepage)
+# print(df.homepage)
 df.homepage = df.homepage.fillna("No homepage")
-print(df.homepage)
+# print(df.homepage)
 
 
-print(df["belongs_to_collection"])
+# print(df["belongs_to_collection"])
 df.fillna({"belongs_to_collection": "{}"}, inplace=True)
-print(df["belongs_to_collection"])
+# print(df["belongs_to_collection"])
 
 df.info()
 
 df.dropna(inplace=True)
-print(df.isnull().sum())
-df.info()
+# print(df.isnull().sum())
+# df.info()
+
+#--------------------------
+
+# print(df.head())
+print(df.genres)
+
+genres_count = df["genres"].value_counts()
+# print(genres_count)
+
+
+# print(genres_count.index)
+
+# print(genres_count.values)
+
+plt.figure(figsize=(10,6))
+
+sns.barplot(x=genres_count.index, y=genres_count.values)
+
+plt.title("counts_film_for_genres")
+plt.xlabel("genres")
+plt.ylabel("count_genres")
+
+plt.xticks(rotation=45)
+
+plt.show()
